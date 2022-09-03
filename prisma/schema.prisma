@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario{
+
+  usuarioId Int @id @default(autoincrement())   
+  movel Movel[]
+  nomeCompleto String @db.VarChar(255) 
+  cpf String @db.VarChar(11) 
+  matricula String @db.VarChar(255) @unique
+  email String @db.VarChar(255) 
+  senha String @db.VarChar(255) 
+
+  @@map("Usuarios")
+  
+}
+
+model Movel{
+
+  movelId Int @id @default(autoincrement())                      
+  nomePatrimonio String @db.VarChar(255) 
+  descricao String @db.VarChar(600) 
+  marca String @db.VarChar(255) 
+  modelo String @db.VarChar(255) 
+  origemTombamento String @db.VarChar(255) 
+  numeroTombamento String @db.VarChar(255) 
+  estadoConservacao String @db.VarChar(255) 
+  localizacao String @db.VarChar(255) 
+  usuario Usuario @relation(fields: [usuarioId], references: [usuarioId])
+  usuarioId Int
+
+  @@map("Moveis")
+  
+}
