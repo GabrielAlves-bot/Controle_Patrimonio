@@ -17,13 +17,13 @@ export class UserController {
     }
 
     @Put(":id")
-    async update(@Param("id") id : number , @Body() data: UserDTO ){
+    async update(@Param("id") id : string , @Body() data: UserDTO ){
       return this.userService.update(id, data);
     }
 
     @Delete(":id")
 
-    async delete (@Param('id') id : number){
+    async delete (@Param('id') id : string){
       return this.userService.delete(id);
     }
 
