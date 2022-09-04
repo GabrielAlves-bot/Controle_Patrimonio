@@ -1,4 +1,4 @@
-import { Body,Controller,Post } from '@nestjs/common/decorators';
+import { Body,Controller,Delete,Get,Param,Post, Put } from '@nestjs/common/decorators';
 import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
 
@@ -10,5 +10,23 @@ export class UserController {
     async create(@Body() data:UserDTO) {
       return this.userService.create(data);
     }
+
+    @Get()
+    async findAll(){
+      return this.userService.findAll();
+    }
+
+    @Put(":id")
+    async update(@Param("id") id : number , @Body() data: UserDTO ){
+      return this.userService.update(id, data);
+    }
+
+    @Delete(":id")
+
+    async delete (@Param('id') id : number){
+      return this.userService.delete(id);
+    }
+
+   
   }
 
