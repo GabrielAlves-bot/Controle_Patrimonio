@@ -15,9 +15,9 @@ model Usuario{
   usuarioId String @id @default(uuid())   
   movel Movel[]
   nomeCompleto String @db.VarChar(255) 
-  cpf String @db.VarChar(11) 
+  cpf String @db.VarChar(11)
   matricula String @db.VarChar(255) @unique
-  email String @db.VarChar(255) 
+  email String @db.VarChar(255)
   senha String @db.VarChar(255) 
 
   @@map("Usuarios")
@@ -35,9 +35,38 @@ model Movel{
   numeroTombamento String @db.VarChar(255) 
   estadoConservacao String @db.VarChar(255) 
   localizacao String @db.VarChar(255) 
+  valor Float @db.Float
   usuario Usuario @relation(fields: [usuarioId], references: [usuarioId])
   usuarioId String
 
+  imovel Imovel @relation(fields: [imovelId], references: [imovelId])
+  imovelId String
+ 
   @@map("Moveis")
   
+}
+
+model Imovel{
+  imovelId String @id @default(uuid())  
+  nomeImovel String @db.VarChar(255) 
+  descricao String @db.VarChar(600) 
+  movel Movel[]
+  endereco Endereco?
+
+  @@map("Imoveis")
+}
+
+model Endereco{
+  Id String @id @default(uuid())
+  logradouro String @db.VarChar(255) 
+  numero String @db.VarChar(255) 
+  complemento String @db.VarChar(255) 
+  bairro String @db.VarChar(255) 
+  cidade String @db.VarChar(255) 
+  estado String @db.VarChar(255) 
+  cep String @db.VarChar(8) 
+  imovel Imovel @relation(fields: [imovelId], references: [imovelId])
+  imovelId String  @unique // relation scalar field (used in the `@relation` attribute above)
+
+  @@map("Enderecos")
 }
